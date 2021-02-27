@@ -4,7 +4,6 @@
 #include"filewrite.c"
 #include"BubbleSort.c"
 #include"QuickSort.c"
-
 void test_list() 
 {
     SDataType data = {"Ryan", 0};

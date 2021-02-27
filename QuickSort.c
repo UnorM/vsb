@@ -16,9 +16,7 @@ void ListAllNode(PNode head); //遍历所有结点
 void ListDestory(PNode head); //销毁单链表
 void List2Array(PNode head, SDataType* datas); //单链表转为数组
 PNode Array2List(PNode head, SDataType* datas, int len); //数组转为单链表
-
 #endif //LIST_H_
-
 void QuickSort(PNode head); //快速排序
 
 #endif //QUICK_SORT_H_

@@ -8,7 +8,6 @@ void ReadFromFile(){
 		getchar();
 		getcahr();
 		return ;
-
 	}
 PNode p;
 char message[LENGTH<<1]	,name[LENGTH];

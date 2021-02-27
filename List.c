@@ -1,7 +1,6 @@
 #include"head.h"
 #include <stdlib.h>
 #include <string.h>
-
 PNode ListInit(SDataType data) //初始化单链表
 {
     PNode head = (PNode)malloc(sizeof(Node));
