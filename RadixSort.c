@@ -1,0 +1,107 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#ifndef RADIX_SORT_H_
+#define RADIX_SORT_H_
+#include "list.h"
+
+void RadixSort(PNode head); //基排序
+
+#endif //RADIX_SORT_H_
+
+int GetMaxElement(SDataType* arr, int len)
+{
+    int i, max = arr[0].totalcount;
+
+    for(i = 0; i < len; i++)
+    {
+        if(arr[i].totalcount > max)
+        {
+            max = arr[i].totalcount;
+        }
+    }
+    return max;
+}
+
+int GetMaxLoop(int num)
+{
+    int bits = 1;
+    num /= 10;
+    while(num != 0)
+    {
+        ++bits;
+        num /= 10;
+    }
+    return bits;
+}
+
+void RadixSortBase(SDataType* arr, int len, int loop)
+{
+    int buickts[10][2000] = {};
+    int temp = (int)pow(10.0, loop - 1);
+    int i, j;
+
+    for(i = 0; i < len; ++i)
+    {
+        int row_index = (arr[i].totalcount / temp) % 10;
+        for(j = 0; j < 2000; ++j)
+        {
+            if(buickts[row_index][j] == 0)
+            {
+                buickts[row_index][j] = arr[i].totalcount;
+                break;
+            }
+        }
+    }
+
+    int k = 0;
+    for(i = 0; i < 10; ++i)
+    {
+        for(j = 0; j < 2000; ++j)
+        {
+            if(buickts[i][j] != 0)
+            {
+                arr[k].totalcount = buickts[i][j];
+                buickts[i][j] = 0;
+                ++k;
+            }
+        }
+    }
+}
+
+void ArrayRadixSort(SDataType* arr, int len) //基于数组的基排序
+{
+    int max = GetMaxElement(arr, len);
+    int loops = GetMaxLoop(max);
+    int i;
+    for(i = 1; i <= loops; ++i)
+    {
+        RadixSortBase(arr, len, i);
+    }
+    return;
+}
+
+void RadixSort(PNode head) //基排序
+{
+    int len = 0;
+    SDataType* arr = NULL;
+
+    if(head == NULL)
+    {
+        printf("排序失败，链表为空!\n");
+        return;
+    }
+    len = ListLength(head);
+    arr = (SDataType*)malloc(sizeof(SDataType) * len);
+    if(arr == NULL)
+    {
+        printf("申请内存失败!\n");
+        return;
+    }
+    List2Array(head, arr);
+    ArrayRadixSort(arr, len);
+    head = Array2ListReverse(head, arr, len);
+    free(arr);
+
+    return;
+}
