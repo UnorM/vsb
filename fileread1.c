@@ -14,6 +14,7 @@ void get_name(const char *line, char* name) //从每行信息中截取名字
             break;
         }
         name[i] = line[i];
+        
     }
 }
 
